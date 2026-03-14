@@ -7,13 +7,49 @@
     body {
       font-family: Arial, sans-serif;
       background: #fffbe6;
+      color: #222;
       margin: 0;
       padding: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: #1a1a1a;
+      color: #f0f0f0;
     }
     header {
       background: #ffd54f;
       padding: 20px;
       text-align: center;
+      position: relative;
+      transition: background 0.3s;
+    }
+    body.dark header {
+      background: #333;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      padding: 8px 16px;
+      background: #fff;
+      border: 2px solid #ffb300;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    body.dark .theme-toggle {
+      background: #555;
+      border-color: #aaa;
+      color: #f0f0f0;
+    }
+    .theme-toggle:hover {
+      background: #ffb300;
+      color: #fff;
+    }
+    body.dark .theme-toggle:hover {
+      background: #888;
     }
     main {
       max-width: 800px;
@@ -22,6 +58,11 @@
       background: #ffffff;
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    body.dark main {
+      background: #2c2c2c;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
     .image-box {
       text-align: center;
@@ -57,12 +98,17 @@
       padding: 15px;
       font-size: 14px;
       color: #666;
+      transition: color 0.3s;
+    }
+    body.dark footer {
+      color: #aaa;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>피카츄 소개 페이지</h1>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙 다크모드</button>
   </header>
 
   <main>
@@ -87,5 +133,20 @@
   <footer>
     © 2026 피카츄 팬 페이지 (예시 HTML)
   </footer>
+
+  <script>
+    function toggleTheme() {
+      const isDark = document.body.classList.toggle('dark');
+      const btn = document.querySelector('.theme-toggle');
+      btn.textContent = isDark ? '☀️ 화이트모드' : '🌙 다크모드';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    // 저장된 테마 적용
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+      document.querySelector('.theme-toggle').textContent = '☀️ 화이트모드';
+    }
+  </script>
 </body>
 </html>
